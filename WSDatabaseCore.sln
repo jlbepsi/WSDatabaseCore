@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSDatabaseCore", "WSDatabaseCore\WSDatabaseCore.csproj", "{6B031ED6-4025-4571-B562-E2F27FE3BC53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpsiLibraryCore", "EpsiLibraryCore\EpsiLibraryCore.csproj", "{FCBBEEAA-D332-4F9A-9165-28732F0D3DB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B031ED6-4025-4571-B562-E2F27FE3BC53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B031ED6-4025-4571-B562-E2F27FE3BC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B031ED6-4025-4571-B562-E2F27FE3BC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B031ED6-4025-4571-B562-E2F27FE3BC53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCBBEEAA-D332-4F9A-9165-28732F0D3DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCBBEEAA-D332-4F9A-9165-28732F0D3DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCBBEEAA-D332-4F9A-9165-28732F0D3DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCBBEEAA-D332-4F9A-9165-28732F0D3DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
