@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,7 +21,6 @@ namespace EpsiLibraryCore.Utilitaires
         {
             //SecurityKey signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(privateKey));
 
-
             validationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = false,
@@ -35,6 +35,7 @@ namespace EpsiLibraryCore.Utilitaires
         public static X509SecurityKey GetPublicKey()
         {
             var path = ConfigurationManager.GetConfigurationManager().GetValue("security.keys.public");
+            
             X509Certificate2 x509Certificate = LoadCertificateFile(path);
             X509SecurityKey publicKey = new X509SecurityKey(x509Certificate);
 
@@ -109,8 +110,6 @@ namespace EpsiLibraryCore.Utilitaires
                 if (rawData != null)
                 {
                     x509 = new X509Certificate2(rawData);
-                    /*x509 = new X509Certificate2();
-                    x509.Import(rawData);*/
                 }
             }
             return x509;

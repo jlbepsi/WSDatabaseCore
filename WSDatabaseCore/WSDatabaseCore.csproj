@@ -8,4 +8,8 @@
       <ProjectReference Include="..\EpsiLibraryCore\EpsiLibraryCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Docker" />
+    </ItemGroup>
+
 </Project>

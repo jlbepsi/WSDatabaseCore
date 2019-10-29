@@ -70,6 +70,18 @@
           <e p="ServerNamesController.cs" t="Include" />
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
+        <e p="Docker" t="Include">
+          <e p="Dockerfile" t="Include" />
+          <e p="Dockerfile_FromBuild" t="Include" />
+          <e p="generateOut.sh" t="Include" />
+          <e p="makeWSDockerImage.sh" t="Include" />
+          <e p="target" t="Include">
+            <e p="epsiconfiguration_docker.xml" t="Include" />
+            <e p="keys" t="Include">
+              <e p="public_cert.crt" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Filter" t="Include">
           <e p="JWTAuthenticationFilter.cs" t="Include" />
         </e>

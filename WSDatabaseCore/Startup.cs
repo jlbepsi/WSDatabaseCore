@@ -28,8 +28,6 @@ namespace WSDatabaseCore
 {
     public class Startup
     {
-        //readonly string CorsOrigins = "_WSDatabaseCors";
-        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -44,7 +42,6 @@ namespace WSDatabaseCore
                 .AddCors()
                 .AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
-            
             
             // Réinitialise les clés pour les Claims:
             // https://mderriey.com/2019/06/23/where-are-my-jwt-claims/
@@ -82,6 +79,7 @@ namespace WSDatabaseCore
             {
                 app.UseDeveloperExceptionPage();
             }
+            // Fixe le fichier de configuration
             EpsiLibraryCore.Utilitaires.ConfigurationManager.MAIN_CONFIG = System.IO.Path.Combine(env.ContentRootPath, "epsiconfiguration.xml");
 
             app.UseRouting();
