@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Security.Principal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +32,7 @@ namespace WSDatabase.Controllers
         public ActionResult<List<DatabaseDb>> GetDatabases()
         {
             List<DatabaseDb> list = _service.GetDatabases();
-            FillPermissions(list, this.GetJWTIdentity());
+            FillPermissions(list);
             return list;
         }
 
@@ -58,7 +58,7 @@ namespace WSDatabase.Controllers
                 return NotFound();
             }
 
-            FillPermissions(databaseDb, this.GetJWTIdentity());
+            FillPermissions(databaseDb);
             return Ok(databaseDb);
         }
         
@@ -77,7 +77,7 @@ namespace WSDatabase.Controllers
         public ActionResult<List<DatabaseDb>> GetDatabasesByServerId(int serverId)
         {
             List<DatabaseDb> list = _service.GetDatabasesByServerId(serverId);
-            FillPermissions(list, this.GetJWTIdentity());
+            FillPermissions(list);
             return list;
         }
 
@@ -96,7 +96,7 @@ namespace WSDatabase.Controllers
         public ActionResult<List<DatabaseDb>> GetDatabasesByServerType(string serverCode)
         {
             List<DatabaseDb> list = _service.GetDatabasesByServerCode(serverCode);
-            FillPermissions(list, this.GetJWTIdentity());
+            FillPermissions(list);
             return list;
         }
 
@@ -115,7 +115,7 @@ namespace WSDatabase.Controllers
         public ActionResult<List<DatabaseDb>> GetDatabasesByLogin(string userLogin)
         {
             List<DatabaseDb> list = _service.GetDatabasesByLogin(userLogin);
-            FillPermissions(list, this.GetJWTIdentity());
+            FillPermissions(list);
             return list;
         }
 
@@ -153,7 +153,7 @@ namespace WSDatabase.Controllers
                 return Conflict();
             }
 
-            //TODO : Add FillPermissions(databaseDb, this.GetJWTIdentity());
+            FillPermissions(databaseDb);
             return CreatedAtRoute("DefaultApi", new { id = databaseDb.Id }, databaseDb);
         }
 
@@ -226,12 +226,23 @@ namespace WSDatabase.Controllers
         /// </summary>
         /// <param name="list"></param>
         /// <param name="jwtAuthenticationIdentity"></param>
-        private void FillPermissions(List<DatabaseDb> list, JWTAuthenticationIdentity jwtAuthenticationIdentity)
+        private void FillPermissions(List<DatabaseDb> list)
         {
+            JWTAuthenticationIdentity jwtAuthenticationIdentity = GetJWTIdentity();
             foreach (DatabaseDb databaseDb in list)
             {
                 FillPermissions(databaseDb, jwtAuthenticationIdentity);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseDb"></param>
+        /// <param name="jwtAuthenticationIdentity"></param>
+        private void FillPermissions(DatabaseDb databaseDb)
+        {
+            FillPermissions(databaseDb, GetJWTIdentity());
         }
 
         /// <summary>

@@ -11,6 +11,6 @@ namespace EpsiLibraryCore.Models
         public string SqlLogin { get; set; }
         public string UserLogin { get; set; }
 
-        public DatabaseServerName DatabaseServerName { get; set; }
+        public DatabaseServerName Server { get; set; }
     }
 }

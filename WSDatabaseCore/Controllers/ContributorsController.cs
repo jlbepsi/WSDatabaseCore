@@ -57,10 +57,10 @@ namespace WSDatabase.Controllers
             }
             
             // L'appelant doit être un administrateur de la base de données
-            if (!_service.IsAdministrateur(this.GetJWTIdentity().Name, groupUserModel.DbId))
+            if (!_service.IsAdministrateur(GetJWTIdentity().Name, groupUserModel.DbId))
                 return Forbid("Vous n'êtes pas administrateur de la base de données");
             
-            DatabaseGroupUser databaseGroupUser = _service.AddContributor(this.GetJWTIdentity().Name, groupUserModel);
+            DatabaseGroupUser databaseGroupUser = _service.AddContributor(GetJWTIdentity().Name, groupUserModel);
             if (databaseGroupUser == null)
             {
                 return Conflict();
@@ -97,7 +97,7 @@ namespace WSDatabase.Controllers
                 return Forbid("Vous n'êtes pas autorisé");
 
             // L'appelant doit être un administrateur de la base de données
-            if (! _service.IsAdministrateur(this.GetJWTIdentity().Name, groupUserModel.DbId))
+            if (! _service.IsAdministrateur(GetJWTIdentity().Name, groupUserModel.DbId))
                 return Forbid("Vous n'êtes pas administrateur de la base de données");
 
             if (_service.UpdateContributor(groupUserModel))
@@ -120,7 +120,7 @@ namespace WSDatabase.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Delete(String id, GroupUserModel groupUserModel)
         {
-            string userLogin = this.GetJWTIdentity().Name;
+            string userLogin = GetJWTIdentity().Name;
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrUser())
                 return Forbid("Vous n'êtes pas autorisé");

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Security.Claims;
+using System.Security.Principal;
 using Microsoft.AspNetCore.Mvc;
 
 using EpsiLibraryCore.Utilitaires;
@@ -38,11 +39,10 @@ namespace WSDatabase.Controllers
 
         protected JWTAuthenticationIdentity GetJWTIdentity()
         {
-            return User?.Identity as JWTAuthenticationIdentity;
-            /*if (this.User == null)
+            if (User?.Identity == null)
                 return null;
 
-            return this.User.Identity as JWTAuthenticationIdentity;*/
+            return AuthenticationModule.PopulateUser(User.Identity as ClaimsIdentity);
         }
     }
 }

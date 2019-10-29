@@ -105,7 +105,8 @@ namespace EpsiLibraryCore.BusinessLogic
 
         private bool Exists(string code)
         {
-            return db.DatabaseServerName.Count(e => e.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase)) > 0;
+            var databaseServerNames = db.DatabaseServerName.AsEnumerable();
+            return databaseServerNames.Count(e => e.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase)) > 0;
         }
 
     }

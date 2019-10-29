@@ -42,24 +42,29 @@ namespace EpsiLibraryCore.BusinessLogic
             // Liste des serveurs
             var servers = db.DatabaseServerName.ToList();
             // Liste des comptes de l'utilisateur
-            var accounts = db.DatabaseServerUser.Include(su => su.Server).Where(su => su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            //var accounts = db.DatabaseServerUser.Include(su => su.Server).Where(su => su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            var databaseServerUsers = db.DatabaseServerUser.AsEnumerable();
+            var accounts = databaseServerUsers.Where(su => su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
             // parcours des serveurs
             foreach(DatabaseServerName serverName in servers)
             {
                 ServerAccounUsertModel accounUsertModel = new ServerAccounUsertModel()
                 {
-                    DatabaseServerName = serverName,
+                    Server = serverName,
                     SqlLogin = null,
                     UserLogin = null
                 };
 
                 // Le compte existe-t-il ?
-                DatabaseServerUser account = accounts.Find(ac => ac.ServerId == serverName.Id);
-                if (account != null)
+                if (accounts.Count > 0)
                 {
-                    accounUsertModel.SqlLogin = account.SqlLogin;
-                    accounUsertModel.UserLogin = account.UserLogin;
+                    DatabaseServerUser account = accounts.Find(ac => ac.ServerId == serverName.Id);
+                    if (account != null)
+                    {
+                        accounUsertModel.SqlLogin = account.SqlLogin;
+                        accounUsertModel.UserLogin = account.UserLogin;
+                    }
                 }
 
                 list.Add(accounUsertModel);
@@ -88,14 +93,16 @@ namespace EpsiLibraryCore.BusinessLogic
             // Liste des serveurs
             var servers = db.DatabaseServerName.ToList();
             // Liste des comptes de l'utilisateur
-            var accounts = db.DatabaseServerUser.Include(su => su.Server).Where(su => su.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            //var accounts = db.DatabaseServerUser.Include(su => su.Server).Where(su => su.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            var databaseServerUsers = db.DatabaseServerUser.AsEnumerable();
+            var accounts = databaseServerUsers.Where(su => su.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
             // parcours des serveurs
             foreach (DatabaseServerName serverName in servers)
             {
                 ServerAccounUsertModel accounUsertModel = new ServerAccounUsertModel()
                 {
-                    DatabaseServerName = serverName,
+                    Server = serverName,
                     SqlLogin = null,
                     UserLogin = null
                 };
@@ -129,16 +136,14 @@ namespace EpsiLibraryCore.BusinessLogic
 
         public DatabaseServerUser GetAccountByServerLogin(int serverId, string userLogin)
         {
-            var database = db.DatabaseServerUser.Include(su => su.Server).SingleOrDefault(su => su.ServerId == serverId && su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase));
-
-            return database;
+            var databaseServerUsers = db.DatabaseServerUser.Include(su => su.Server).AsEnumerable();
+            return databaseServerUsers.SingleOrDefault(su => su.ServerId == serverId && su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public DatabaseServerUser GetAccountByServerSqlLogin(int serverId, string sqlLogin)
         {
-            var database = db.DatabaseServerUser.Include(su => su.Server).SingleOrDefault(su => su.ServerId == serverId && su.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase));
-
-            return database;
+            var databaseServerUsers = db.DatabaseServerUser.Include(su => su.Server).AsEnumerable();
+            return databaseServerUsers.SingleOrDefault(su => su.ServerId == serverId && su.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public DatabaseServerUser AddAccount(ServerAccountModel serverAccount)
@@ -200,7 +205,8 @@ namespace EpsiLibraryCore.BusinessLogic
                 serverName = databaseServerName.Name;
 
                 // Obtention du login SQL de l'utilisateur
-                databaseServerUser = this.db.DatabaseServerUser.SingleOrDefault(su => su.ServerId == serverAccount.ServerId && su.UserLogin.Equals(serverAccount.UserLogin, StringComparison.InvariantCultureIgnoreCase));
+                var databaseServerUsers = db.DatabaseServerUser.Include(su => su.Server).AsEnumerable();
+                databaseServerUser = databaseServerUsers.SingleOrDefault(su => su.ServerId == serverAccount.ServerId && su.UserLogin.Equals(serverAccount.UserLogin, StringComparison.InvariantCultureIgnoreCase));
                 if (databaseServerUser == null)
                     return false;
             }
@@ -248,7 +254,8 @@ namespace EpsiLibraryCore.BusinessLogic
 
             try
             {
-                databaseServerUser = this.db.DatabaseServerUser.SingleOrDefault(su => su.ServerId == serverId && su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase));
+                var databaseServerUsers = db.DatabaseServerUser.Include(su => su.Server).AsEnumerable();
+                databaseServerUser = databaseServerUsers.SingleOrDefault(su => su.ServerId == serverId && su.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase));
                 if (databaseServerUser == null)
                 {
                     return null;

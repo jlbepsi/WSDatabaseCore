@@ -78,6 +78,10 @@ namespace EpsiLibraryCore.Utilitaires
         {
             return PopulateUserFromClaims(claimsPrincipal.Claims); 
         }
+        public static JWTAuthenticationIdentity PopulateUser(ClaimsIdentity claimsIdentity)
+        {
+            return PopulateUserFromClaims(claimsIdentity.Claims); 
+        }
 
         public JwtSecurityToken ValidateToken(string accessToken)
         {

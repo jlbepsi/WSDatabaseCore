@@ -37,7 +37,7 @@ namespace EpsiLibraryCore.BusinessLogic
         public List<DatabaseDb> GetDatabasesByServerCode(string serverCode)
         {
             var databases = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
-            var list = databases.Where(db => db.Server.Code.Equals(serverCode, StringComparison.CurrentCultureIgnoreCase));
+            var list = databases.Where(db => db.Server.Code.Equals(serverCode, StringComparison.InvariantCultureIgnoreCase));
             return list.ToList();
         }
 
@@ -45,13 +45,13 @@ namespace EpsiLibraryCore.BusinessLogic
         {
             var databases = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
             var list = databases.Where(db =>
-                db.Users.FirstOrDefault(u => u.UserLogin.Equals(userLogin, StringComparison.CurrentCultureIgnoreCase)) != null);
+                db.Users.FirstOrDefault(u => u.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)) != null);
             
             /*var list = 
                 from dbs in db.DatabaseDbs
                 join dgu in db.DatabaseGroupUser
                 on dbs.Id equals dgu.DbId
-                where dgu.UserLogin.Equals(userLogin, StringComparison.CurrentCultureIgnoreCase)
+                where dgu.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)
                 select dbs;*/
             return list.ToList();
         }
@@ -66,8 +66,11 @@ namespace EpsiLibraryCore.BusinessLogic
         {
             try
             {
-                DatabaseDb databaseDb = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users)
-                    .SingleOrDefault(db => db.ServerId == serverId && db.NomBd.Equals(nomBD, StringComparison.InvariantCultureIgnoreCase));
+                /*DatabaseDb databaseDb = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users)
+                    .SingleOrDefault(db => db.ServerId == serverId && db.NomBd.Equals(nomBD, StringComparison.InvariantCultureIgnoreCase));*/
+                
+                var list = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
+                DatabaseDb databaseDb = list.SingleOrDefault(db => db.ServerId == serverId && db.NomBd.Equals(nomBD, StringComparison.InvariantCultureIgnoreCase));
                 return databaseDb;
             }
             catch(Exception)

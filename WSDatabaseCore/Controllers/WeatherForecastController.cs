@@ -26,7 +26,7 @@ namespace WSDatabaseCore.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         //[Authorize(Roles = "SUPER_ADMIN")]
         public IEnumerable<WeatherForecast> Get()
         {
