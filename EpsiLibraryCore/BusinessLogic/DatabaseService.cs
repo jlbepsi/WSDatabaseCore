@@ -240,7 +240,7 @@ namespace EpsiLibraryCore.BusinessLogic
         {
             try
             {
-                var list = db.DatabaseGroupUser.AsEnumerable();
+                var list = db.DatabaseGroupUser.Include(d => d.Db).AsEnumerable();
                 return list.FirstOrDefault(gu => gu.DbId == id && gu.SqlLogin.Equals(sqlLogin, StringComparison.InvariantCultureIgnoreCase));
             }
             catch (Exception)

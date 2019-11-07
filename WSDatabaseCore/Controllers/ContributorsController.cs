@@ -49,7 +49,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrUser())
-                return Forbid("Vous n'êtes pas autorisé");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace WSDatabase.Controllers
             
             // L'appelant doit être un administrateur de la base de données
             if (!_service.IsAdministrateur(GetJWTIdentity().Name, groupUserModel.DbId))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
             
             DatabaseGroupUser databaseGroupUser = _service.AddContributor(GetJWTIdentity().Name, groupUserModel);
             if (databaseGroupUser == null)
@@ -94,11 +94,11 @@ namespace WSDatabase.Controllers
 
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrUser())
-                return Forbid("Vous n'êtes pas autorisé");
+                return Forbid();
 
             // L'appelant doit être un administrateur de la base de données
             if (! _service.IsAdministrateur(GetJWTIdentity().Name, groupUserModel.DbId))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (_service.UpdateContributor(groupUserModel))
                 return StatusCode(StatusCodes.Status204NoContent);
@@ -123,7 +123,7 @@ namespace WSDatabase.Controllers
             string userLogin = GetJWTIdentity().Name;
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrUser())
-                return Forbid("Vous n'êtes pas autorisé");
+                return Forbid();
 
             DatabaseGroupUser databaseGroupUser = _service.GetDatabaseGroupUserWithSqlLogin(id, groupUserModel.DbId);
             if (databaseGroupUser == null)
@@ -133,7 +133,7 @@ namespace WSDatabase.Controllers
 
             // L'utilisateur doit être un administrateur de la base de données
             if (! _service.IsAdministrateur(userLogin, groupUserModel.DbId))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             databaseGroupUser = _service.RemoveContributor(id, groupUserModel.DbId);
 

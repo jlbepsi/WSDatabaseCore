@@ -126,7 +126,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrOwner(serverAccount.UserLogin))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {
@@ -164,7 +164,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrOwner(serverAccount.UserLogin))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {
@@ -200,7 +200,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrOwner(serverAccount.UserLogin))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {

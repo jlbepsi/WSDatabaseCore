@@ -140,7 +140,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrOwner(database.UserLogin))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {
@@ -174,7 +174,7 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrOwner(database.UserLogin))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             if (!ModelState.IsValid)
             {
@@ -206,11 +206,11 @@ namespace WSDatabase.Controllers
         {
             // Vérification de l'appelant
             if (! this.SecurityCheckRoleAdminOrUser())
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             // L'appelant doit être un administrateur de la base de données
             if (! _service.IsAdministrateur(this.GetJWTIdentity().Name, id))
-                return Forbid("Vous n'êtes pas administrateur de la base de données");
+                return Forbid();
 
             DatabaseDb databaseDb = _service.RemoveDatabase(id);
             if (databaseDb == null)

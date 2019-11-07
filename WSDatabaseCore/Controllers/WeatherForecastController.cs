@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using EpsiLibraryCore.Utilitaires;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -30,16 +31,12 @@ namespace WSDatabaseCore.Controllers
         //[Authorize(Roles = "SUPER_ADMIN")]
         public IEnumerable<WeatherForecast> Get()
         {
-            JWTAuthenticationIdentity jwtUser = AuthenticationModule.PopulateUser(HttpContext.User);
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
                     Summary = Summaries[rng.Next(Summaries.Length)],
-                    Roles = String.Join(",", jwtUser.Roles),
-                    Email = jwtUser.Mail,
-                    Classe = jwtUser.Classe
                 })
                 .ToArray();
         }
@@ -48,7 +45,7 @@ namespace WSDatabaseCore.Controllers
         [Authorize(Roles = "SUPER_ADMIN")]
         public WeatherForecast Get(int id)
         {
-            JWTAuthenticationIdentity jwtUser = AuthenticationModule.PopulateUser(HttpContext.User);
+            JWTAuthenticationIdentity jwtUser = AuthenticationModule.PopulateUser(HttpContext.User.Identity as ClaimsIdentity);
             var rng = new Random();
             return new WeatherForecast
                 {

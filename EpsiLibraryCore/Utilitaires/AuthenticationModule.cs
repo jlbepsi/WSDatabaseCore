@@ -74,10 +74,6 @@ namespace EpsiLibraryCore.Utilitaires
         {
             return PopulateUserFromClaims(userPayloadToken.Claims);
         }
-        public static JWTAuthenticationIdentity PopulateUser(ClaimsPrincipal claimsPrincipal)
-        {
-            return PopulateUserFromClaims(claimsPrincipal.Claims); 
-        }
         public static JWTAuthenticationIdentity PopulateUser(ClaimsIdentity claimsIdentity)
         {
             return PopulateUserFromClaims(claimsIdentity.Claims); 
