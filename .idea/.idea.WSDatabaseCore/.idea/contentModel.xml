@@ -70,6 +70,12 @@
           <e p="ServerNamesController.cs" t="Include" />
           <e p="WeatherForecastController.cs" t="Include" />
         </e>
+        <e p="Deploiement" t="Include">
+          <e p="Dockerfile" t="Include" />
+          <e p="initialisation_git" t="Include" />
+          <e p="makeWSDockerImage.sh" t="Include" />
+          <e p="update_wsdatabase_prod.sh" t="Include" />
+        </e>
         <e p="Docker" t="Include">
           <e p="Dockerfile" t="Include" />
           <e p="Dockerfile_FromBuild" t="Include" />
@@ -96,6 +102,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="epsiconfiguration.xml" t="Include" />
+        <e p="epsiconfiguration_docker.xml" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
