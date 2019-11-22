@@ -139,6 +139,7 @@ namespace WSDatabase.Controllers
                 return Conflict();
             }
 
+            return Ok(databaseServerUser);
             return CreatedAtRoute("DefaultApi", new { id = databaseServerUser.ServerId }, databaseServerUser);
         }
 

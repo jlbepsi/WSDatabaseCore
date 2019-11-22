@@ -35,7 +35,7 @@ namespace WSDatabase.Controllers
              */
             JWTAuthenticationIdentity jwtAuthenticationIdentity = GetJWTIdentity();
             return (jwtAuthenticationIdentity.IsInRole("ROLE_SUPER_ADMIN") || 
-                    (jwtAuthenticationIdentity.IsInRole("ROLE_USER") && jwtAuthenticationIdentity.Nom.Equals(userLogin, System.StringComparison.InvariantCultureIgnoreCase)));
+                    (jwtAuthenticationIdentity.IsInRole("ROLE_USER") && jwtAuthenticationIdentity.Name.Equals(userLogin, System.StringComparison.InvariantCultureIgnoreCase)));
         }
 
         protected JWTAuthenticationIdentity GetJWTIdentity()

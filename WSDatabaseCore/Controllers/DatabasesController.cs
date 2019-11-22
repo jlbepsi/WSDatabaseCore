@@ -45,7 +45,8 @@ namespace WSDatabase.Controllers
         /// <example>
         /// http://serveur/api/databases/3
         /// </example>
-        [HttpGet("{id}")]
+        [HttpGet]
+        //[HttpGet("{id}")]
         [Route("{id:int}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status302Found)]
@@ -71,7 +72,8 @@ namespace WSDatabase.Controllers
         /// <example>
         /// http://serveur/api/databases/ServerId/3
         /// </example>
-        [HttpGet("{serverId}")]
+        [HttpGet]
+        //[HttpGet("{serverId}")]
         [Authorize]
         [Route("serverid/{serverId}")]
         public ActionResult<List<DatabaseDb>> GetDatabasesByServerId(int serverId)
@@ -90,7 +92,8 @@ namespace WSDatabase.Controllers
         /// <example>
         /// http://serveur/api/databases/ServerCode/mysql
         /// </example>
-        [HttpGet("{serverCode}")]
+        [HttpGet]
+        //[HttpGet("{serverCode}")]
         [Authorize]
         [Route("servercode/{serverCode}")]
         public ActionResult<List<DatabaseDb>> GetDatabasesByServerType(string serverCode)
@@ -109,7 +112,8 @@ namespace WSDatabase.Controllers
         /// <example>
         /// http://serveur/api/databases/Login/test.v8/
         /// </example>
-        [HttpGet("{userLogin}")]
+        [HttpGet]
+        //[HttpGet("{userLogin}")]
         [Authorize]
         [Route("login/{userLogin}")]
         public ActionResult<List<DatabaseDb>> GetDatabasesByLogin(string userLogin)
@@ -154,6 +158,7 @@ namespace WSDatabase.Controllers
             }
 
             FillPermissions(databaseDb);
+            return CreatedAtAction(nameof(GetDatabase), new { id = databaseDb.Id }, databaseDb);
             return CreatedAtRoute("DefaultApi", new { id = databaseDb.Id }, databaseDb);
         }
 
