@@ -25,7 +25,15 @@ namespace WSDatabase.Controllers
         private readonly ServerAccountService _service = new ServerAccountService();
 
         // GET: api/Accounts
+        /// <summary>
+        /// Retourne la liste des comptes de tous les serveurs de BD
+        /// </summary>
+        /// <returns>Une liste d'objets <code>DatabaseServerUser</code></returns>
+        /// <example>
+        /// http://serveur/api/Accounts
+        /// </example>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<DatabaseServerUser>> GetServerAccounts()
         {
             return _service.GetAccounts();
@@ -42,6 +50,7 @@ namespace WSDatabase.Controllers
         /// </example>
         [HttpGet]
         [Route("serverid/{serverId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<DatabaseServerUser>> GetAccountsByServerId(int serverId)
         {
             return _service.GetAccountsByServerId(serverId);
@@ -58,6 +67,7 @@ namespace WSDatabase.Controllers
         /// </example>
         [HttpGet]
         [Route("userlogin/{userLogin}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ServerAccounUsertModel>> GetAccountsByUserLogin(string userLogin)
         {
             return _service.GetAccountsByUserLogin(userLogin);
@@ -74,6 +84,7 @@ namespace WSDatabase.Controllers
         /// </example>
         [HttpGet]
         [Route("sqllogin/{sqlLogin}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ServerAccounUsertModel>> GetAccountsBySqlLogin(string sqlLogin)
         {
             return _service.GetAccountsBySqlLogin(sqlLogin);

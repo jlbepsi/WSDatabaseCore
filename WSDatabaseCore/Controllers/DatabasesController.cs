@@ -29,6 +29,7 @@ namespace WSDatabase.Controllers
         /// </example>
         [HttpGet]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<DatabaseDb>> GetDatabases()
         {
             List<DatabaseDb> list = _service.GetDatabases();
@@ -42,6 +43,7 @@ namespace WSDatabase.Controllers
         /// </summary>
         /// <param name="id">L'identifiant de la base de données</param>
         /// <returns>Un objet <code>DatabaseDb</code></returns>
+        /// <response code="302">La DB d'id id n'existe pas</response>     
         /// <example>
         /// http://serveur/api/databases/3
         /// </example>
@@ -49,6 +51,7 @@ namespace WSDatabase.Controllers
         //[HttpGet("{id}")]
         [Route("{id:int}")]
         [Authorize]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status302Found)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<DatabaseDb> GetDatabase(int id)
