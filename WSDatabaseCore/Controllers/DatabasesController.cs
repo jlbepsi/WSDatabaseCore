@@ -22,7 +22,6 @@ namespace WSDatabase.Controllers
         /// <summary>
         /// Retourne la liste des bases de données <code>DatabaseDb</code>
         /// </summary>
-        /// <param name="serverId">L'identifiant du serveur de base de données</param>
         /// <returns>Une liste d'objets <code>DatabaseDb</code></returns>
         /// <example>
         /// http://serveur/api/databasess/3
@@ -52,7 +51,7 @@ namespace WSDatabase.Controllers
         [Route("{id:int}")]
         [Authorize]
         [Produces("application/json")]
-        [ProducesResponseType(StatusCodes.Status302Found)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<DatabaseDb> GetDatabase(int id)
         {
@@ -88,7 +87,7 @@ namespace WSDatabase.Controllers
 
         // GET: api/Database
         /// <summary>
-        /// Retourne la liste des bases de données <code>DatabaseDb</code> du serveur de type <paramref name="serverType"/>
+        /// Retourne la liste des bases de données <code>DatabaseDb</code> du serveur d'identifiant <paramref name="serverCode"/>
         /// </summary>
         /// <param name="serverCode">L'identifiant du serveur de base de données</param>
         /// <returns>Une liste d'objets <code>DatabaseDb</code></returns>
@@ -128,7 +127,7 @@ namespace WSDatabase.Controllers
 
         // POST: api/Database
         /// <summary>
-        /// Ajoute la base de données, les éléments sont identifiés par <paramref name="databaseDb"/>
+        /// Ajoute la base de données, les éléments sont identifiés par <paramref name="database"/>
         /// </summary>
         /// <param name="database">L'objet DatabaseDb a ajouter</param>
         /// <returns>Retourne l'URL de l'objet créé si l'ajout est valide, le code statut HTTP BadRequest ou Conflict sinon</returns>
@@ -162,7 +161,6 @@ namespace WSDatabase.Controllers
 
             FillPermissions(databaseDb);
             return CreatedAtAction(nameof(GetDatabase), new { id = databaseDb.Id }, databaseDb);
-            return CreatedAtRoute("DefaultApi", new { id = databaseDb.Id }, databaseDb);
         }
 
         // PUT: api/DatabaseDbs/5
@@ -233,7 +231,6 @@ namespace WSDatabase.Controllers
         /// en fonction de l'utilsateur connecté
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="jwtAuthenticationIdentity"></param>
         private void FillPermissions(List<DatabaseDb> list)
         {
             JWTAuthenticationIdentity jwtAuthenticationIdentity = GetJWTIdentity();
@@ -247,7 +244,6 @@ namespace WSDatabase.Controllers
         /// 
         /// </summary>
         /// <param name="databaseDb"></param>
-        /// <param name="jwtAuthenticationIdentity"></param>
         private void FillPermissions(DatabaseDb databaseDb)
         {
             FillPermissions(databaseDb, GetJWTIdentity());

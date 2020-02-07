@@ -103,6 +103,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="epsiconfiguration.xml" t="Include" />
         <e p="epsiconfiguration_docker.xml" t="Include" />
+        <e p="mono_crash.mem.7430.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">

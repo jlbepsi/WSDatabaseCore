@@ -60,7 +60,7 @@ namespace WSDatabase.Controllers
         /// <summary>
         /// Retourne la liste des comptes <code>DatabaseServerUser</code> identifié par <paramref name="userLogin"/>
         /// </summary>
-        /// <param name="userLogin">Le login C&D de l'étudiant</param>
+        /// <param name="userLogin">Le login CetD de l'étudiant</param>
         /// <returns>Une liste d'objets <code>DatabaseServerUser</code></returns>
         /// <example>
         /// http://serveur/api/Accounts/UserLogin/test.v8
@@ -95,7 +95,7 @@ namespace WSDatabase.Controllers
         /// Retourne le compte <code>DatabaseServerUser</code> identifié par <paramref name="userLogin"/> du serveur <paramref name="serverId"/> 
         /// </summary>
         /// <param name="serverId">L'identifiant du serveur de base de données</param>
-        /// <param name="userLogin">Le login C&D de l'étudiant</param>
+        /// <param name="userLogin">Le login CD de l'étudiant</param>
         /// <returns>Le compte utilisateur  <code>DatabaseServerUser</code></returns>
         /// <example>
         /// http://serveur/api/Accounts/ServerId/0/UserLogin/test.v8/
@@ -150,15 +150,15 @@ namespace WSDatabase.Controllers
                 return Conflict();
             }
 
-            return Ok(databaseServerUser);
-            return CreatedAtRoute("DefaultApi", new { id = databaseServerUser.ServerId }, databaseServerUser);
+            //return Ok(databaseServerUser);
+            return CreatedAtAction(nameof(GetAccountsByServerId), new { id = databaseServerUser.ServerId }, databaseServerUser);
         }
 
         // PUT: api/Accounts/5
         /// <summary>
-        /// Modifie le mot de passe de l'utilisateur identifié par <paramref name="serverAccount"/> sur le serveur <paramref name="serverId"/>
+        /// Modifie le mot de passe de l'utilisateur identifié par <paramref name="serverAccount"/> sur le serveur <paramref name="id"/>
         /// </summary>
-        /// <param name="serverId">L'identifiant du serveur de base de données</param>
+        /// <param name="id">L'identifiant du serveur de base de données</param>
         /// <param name="serverAccount">L'objet ServerAccount a modifier</param>
         /// <returns>Retourne le code statut HTTP NoContent si la modification est valide, le code statut HTTP BadRequest sinon</returns>
         /// <example>
@@ -195,7 +195,7 @@ namespace WSDatabase.Controllers
 
         // DELETE: api/DatabaseServerAccount/5
         /// <summary>
-        /// Supprime l'utilisateur identifié par <paramref name="userLogin"/> sur le serveur <paramref name="serverId"/>
+        /// Supprime l'utilisateur identifié par <paramref name="serverAccount"/> sur le serveur <paramref name="id"/>
         /// </summary>
         /// <param name="id">L'identifiant du serveur de base de données</param>
         /// <param name="serverAccount">L'objet ServerAccount a supprimer</param>

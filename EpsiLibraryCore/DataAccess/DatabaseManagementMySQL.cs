@@ -291,15 +291,17 @@ namespace EpsiLibraryCore.DataAccess
             try
             {
                 Open();
-                // Ajout de l'utilisateur sur le serveur
-                MySqlCommand cmd = new MySqlCommand("AddOrUpdateUser", GetSqlConnection());
-                cmd.CommandType = CommandType.StoredProcedure;
+                if (!String.IsNullOrWhiteSpace(password))
+                {
+                    // Ajout de l'utilisateur sur le serveur
+                    MySqlCommand cmd = new MySqlCommand("AddOrUpdateUser", GetSqlConnection());
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new MySqlParameter("@userName", sqlLogin));
-                cmd.Parameters.Add(new MySqlParameter("@userPassword", password));
+                    cmd.Parameters.Add(new MySqlParameter("@userName", sqlLogin));
+                    cmd.Parameters.Add(new MySqlParameter("@userPassword", password));
 
-                cmd.ExecuteNonQuery();
-                //InternalExecuteNonQuery(String.Format("GRANT USAGE ON * . * TO '{0}'@'%' IDENTIFIED BY '{1}' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;", sqlLogin, password));
+                    cmd.ExecuteNonQuery();
+                }
 
                 // Ajout de l'utilisateur pour la base de données
                 InternalExecuteNonQuery(String.Format("GRANT {0} ON {1}.* TO '{2}'@'%' ;", mysqlRights, databaseName, sqlLogin));

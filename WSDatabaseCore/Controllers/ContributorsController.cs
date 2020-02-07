@@ -78,7 +78,7 @@ namespace WSDatabase.Controllers
         /// </summary>
         /// <param name="id">L'identifiant du contributeur</param>
         /// <param name="groupUserModel">L'objet contenant les informations du contributeur et de la base de données</param>
-        /// <returns>Retourne le code statut HTTP Ok si la modification a été faite, BadRequest ou Conflict sinon
+        /// <returns>Retourne le code statut HTTP Ok si la modification a été faite, BadRequest ou Conflict sinon</returns>
         [HttpPut("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -112,7 +112,7 @@ namespace WSDatabase.Controllers
         /// </summary>
         /// <param name="id">L'identifiant du contributeur</param>
         /// <param name="groupUserModel">L'objet contenant les informations du contributeur et de la base de données</param>
-        /// <returns>Retourne le code statut HTTP Ok si la modification a été faite, BadRequest ou Conflict sinon
+        /// <returns>Retourne le code statut HTTP Ok si la modification a été faite, BadRequest ou Conflict sinon</returns>
         [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
