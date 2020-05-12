@@ -126,7 +126,8 @@ namespace EpsiLibraryCore.DataAccess
             }
             catch (MySqlException ex)
             {
-                LogManager.GetLogger().Error(ex);
+                string message = String.Format("AddOrUpdateUser({0}, {1})", sqlLogin, password);
+                LogManager.GetLogger().Error(message, ex);
 
                 throw new DatabaseException(ex.Message);
             }

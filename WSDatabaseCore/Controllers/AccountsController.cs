@@ -150,8 +150,8 @@ namespace WSDatabase.Controllers
                 return Conflict();
             }
 
-            //return Ok(databaseServerUser);
-            return CreatedAtAction(nameof(GetAccountsByServerId), new { id = databaseServerUser.ServerId }, databaseServerUser);
+            return Ok(databaseServerUser);
+            //return CreatedAtAction(nameof(GetAccountsByServerId ), new { id = databaseServerUser.ServerId }, databaseServerUser);
         }
 
         // PUT: api/Accounts/5
