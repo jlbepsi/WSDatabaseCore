@@ -24,26 +24,26 @@ namespace EpsiLibraryCore.BusinessLogic
         #region Gestion des bases de données
         public List<DatabaseDb> GetDatabases()
         {
-            IQueryable<DatabaseDb> list = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).OrderBy(db => db.ServerId);
+            IQueryable<DatabaseDb> list = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users).OrderBy(db => db.ServerId);
             return list.ToList();
         }
 
         public List<DatabaseDb> GetDatabasesByServerId(int serverId)
         {
-            var list = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).Where(db => db.Server.Id == serverId);
+            var list = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users).Where(db => db.Server.Id == serverId);
             return list.ToList();
         }
 
         public List<DatabaseDb> GetDatabasesByServerCode(string serverCode)
         {
-            var databases = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
+            var databases = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
             var list = databases.Where(db => db.Server.Code.Equals(serverCode, StringComparison.InvariantCultureIgnoreCase));
             return list.ToList();
         }
 
         public List<DatabaseDb> GetDatabasesByLogin(string userLogin)
         {
-            var databases = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
+            var databases = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
             var list = databases.Where(db =>
                 db.Users.FirstOrDefault(u => u.UserLogin.Equals(userLogin, StringComparison.InvariantCultureIgnoreCase)) != null);
             
@@ -58,7 +58,7 @@ namespace EpsiLibraryCore.BusinessLogic
 
         public DatabaseDb GetDatabase(int id)
         {
-            return db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users)
+            return db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users)
                 .FirstOrDefault(db => db.Id == id);
         }
 
@@ -66,10 +66,10 @@ namespace EpsiLibraryCore.BusinessLogic
         {
             try
             {
-                /*DatabaseDb databaseDb = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users)
+                /*DatabaseDb databaseDb = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users)
                     .SingleOrDefault(db => db.ServerId == serverId && db.NomBd.Equals(nomBD, StringComparison.InvariantCultureIgnoreCase));*/
                 
-                var list = db.DatabaseDbs.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
+                var list = db.DatabaseDb.Include(sn => sn.Server).Include(u => u.Users).AsEnumerable();
                 DatabaseDb databaseDb = list.SingleOrDefault(db => db.ServerId == serverId && db.NomBd.Equals(nomBD, StringComparison.InvariantCultureIgnoreCase));
                 return databaseDb;
             }
@@ -128,7 +128,7 @@ namespace EpsiLibraryCore.BusinessLogic
                 DateCreation = DateTime.Now,
                 Commentaire = database.Commentaire
             };
-            db.DatabaseDbs.Add(databaseDB);
+            db.DatabaseDb.Add(databaseDB);
 
             try
             {
@@ -504,7 +504,7 @@ namespace EpsiLibraryCore.BusinessLogic
             }
 
             // Suppression de la base de données
-            db.DatabaseDbs.Remove(database);
+            db.DatabaseDb.Remove(database);
             try
             {
                 db.SaveChanges();
@@ -559,7 +559,7 @@ namespace EpsiLibraryCore.BusinessLogic
 
         private bool Exists(int id)
         {
-            return db.DatabaseDbs.Count(e => e.ServerId == id) > 0;
+            return db.DatabaseDb.Count(e => e.ServerId == id) > 0;
         }
 
     }

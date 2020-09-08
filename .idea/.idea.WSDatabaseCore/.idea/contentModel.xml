@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_WSDatabaseCore.1860977479.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_WSDatabaseCore.-1801016536.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="EpsiLibraryCore" t="IncludeRecursive">
         <e p="App.config" t="Include" />
@@ -103,7 +103,6 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="epsiconfiguration.xml" t="Include" />
         <e p="epsiconfiguration_docker.xml" t="Include" />
-        <e p="mono_crash.mem.7430.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">

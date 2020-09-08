@@ -296,7 +296,7 @@ namespace EpsiLibraryCore.BusinessLogic
 
         private bool Exists(int id)
         {
-            return db.DatabaseDbs.Count(e => e.ServerId == id) > 0;
+            return db.DatabaseDb.Count(e => e.ServerId == id) > 0;
         }
     }
 }
