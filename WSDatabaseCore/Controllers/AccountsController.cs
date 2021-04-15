@@ -58,6 +58,29 @@ namespace WSDatabase.Controllers
 
         // GET: api/Accounts/5
         /// <summary>
+        /// Retourne la liste des logins des utilisateurs du serveur <paramref name="serverId"/>
+        /// </summary>
+        /// <param name="serverId">L'identifiant du serveur de base de données</param>
+        /// <returns>Une liste de login Utilisateur</returns>
+        /// <example>
+        /// http://serveur/api/Accounts/byServerId/3
+        /// </example>
+        [HttpGet]
+        [Route("loginserver/{serverId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<string>> GetLoginByServerId(int serverId)
+        {
+            List<DatabaseServerUser> accounts = _service.GetAccountsByServerId(serverId);
+            List<string> logins = new List<string>(accounts.Count);
+            foreach (DatabaseServerUser user in accounts)
+            {
+                logins.Add(user.UserLogin);
+            }
+            return logins;
+        }
+
+        // GET: api/Accounts/5
+        /// <summary>
         /// Retourne la liste des comptes <code>DatabaseServerUser</code> identifié par <paramref name="userLogin"/>
         /// </summary>
         /// <param name="userLogin">Le login CetD de l'étudiant</param>
