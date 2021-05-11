@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using EpsiLibraryCore.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,6 @@ namespace EpsiLibraryCore.Models
 {
     public partial class ServiceEpsiContext : DbContext
     {
-        public ServiceEpsiContext()
-        {
-        }
-
         public ServiceEpsiContext(DbContextOptions<ServiceEpsiContext> options)
             : base(options)
         {
@@ -21,14 +18,16 @@ namespace EpsiLibraryCore.Models
         public virtual DbSet<DatabaseServerName> DatabaseServerName { get; set; }
         public virtual DbSet<DatabaseServerUser> DatabaseServerUser { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["ServiceEpsiDatabase"]
                     .ConnectionString);
+                Console.WriteLine("ServiceEpsiContext.OnConfiguring=" + ConfigurationManager.ConnectionStrings["ServiceEpsiDatabase"]
+                    .ConnectionString);
             }
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

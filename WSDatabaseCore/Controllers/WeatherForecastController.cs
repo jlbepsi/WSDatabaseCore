@@ -42,10 +42,12 @@ namespace WSDatabaseCore.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "SUPER_ADMIN")]
+        [Authorize]
         public WeatherForecast Get(int id)
         {
             JWTAuthenticationIdentity jwtUser = AuthenticationModule.PopulateUser(HttpContext.User.Identity as ClaimsIdentity);
+            Console.WriteLine($"WeatherForecastController.Get, jwtUser.Name={jwtUser.Name}");
+            LogManager.GetLogger().Info($"WeatherForecastController.Get, jwtUser.Name={jwtUser.Name}");
             var rng = new Random();
             return new WeatherForecast
                 {

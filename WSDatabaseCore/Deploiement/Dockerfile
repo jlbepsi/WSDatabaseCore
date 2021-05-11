@@ -22,6 +22,7 @@ COPY --from=build /app/WSDatabaseCore/out ./
 COPY source/keys/public_cert.crt keys/public_cert.crt
 # Copie du fichier de configuration
 COPY source/WSDatabaseCore/epsiconfiguration_docker.xml ./epsiconfiguration.xml
+COPY source/WSDatabaseCore/appsettings-dockercompose.json ./appsettings.json
 
 # Fixe l'erreur :
 # 	System.NotSupportedException: Globalization Invariant Mode is not supported.

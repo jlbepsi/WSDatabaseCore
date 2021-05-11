@@ -10,20 +10,24 @@ namespace WSDatabase.Controllers
     [Route("api/[controller]")]
     public class ServerNamesController: ControllerBase
     {
-        private ServerNameService service = new ServerNameService();
-        
+        private ServerNameService _service;
+
+        public ServerNamesController(ServiceEpsiContext context)
+        {
+            _service = new ServerNameService(context);
+        } 
         
         [HttpGet]
         public IEnumerable<DatabaseServerName> GetDatabaseServerNames()
         {
-            return service.Get();
+            return _service.Get();
         }
 
         // GET: api/DatabaseServerNames/5
         [HttpGet("{id}")]
         public ActionResult<DatabaseServerName> GetDatabaseServerName(int id)
         {
-            DatabaseServerName databaseServerName = service.Get(id);
+            DatabaseServerName databaseServerName = _service.Get(id);
             if (databaseServerName == null)
             {
                 return NotFound();

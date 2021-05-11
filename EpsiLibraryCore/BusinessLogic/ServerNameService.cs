@@ -12,13 +12,9 @@ namespace EpsiLibraryCore.BusinessLogic
     {
         private ServiceEpsiContext db;
 
-        public ServerNameService()
+        public ServerNameService(ServiceEpsiContext context)
         {
-            this.db = new ServiceEpsiContext();
-        }
-        public ServerNameService(ServiceEpsiContext db)
-        {
-            this.db = db;
+            this.db = context;
         }
 
 

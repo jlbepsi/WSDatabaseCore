@@ -33,4 +33,4 @@ docker build -t epsi/wsdatabase .
 
 
 echo "Démarrage du container"
-docker run -p 8070:80 --detach --mount type=bind,source=/docker/server/wsdatabasecore/logs/,target=/app/logs --restart always --name wsdatabase epsi/wsdatabase
+docker run -p 8070:80 --detach --mount type=bind,source=/docker/server/wsdatabasecore/logs/,target=/logs --restart always --name wsdatabase epsi/wsdatabase

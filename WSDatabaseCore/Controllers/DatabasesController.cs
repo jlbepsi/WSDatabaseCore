@@ -15,8 +15,12 @@ namespace WSDatabase.Controllers
     [Route("api/[controller]")]
     public class DatabasesController : SecureApiController
     {
-        private readonly DatabaseService _service = new DatabaseService();
+        private readonly DatabaseService _service;
 
+        public DatabasesController(ServiceEpsiContext context)
+        {
+            _service = new DatabaseService(context);
+        } 
        
         // GET: api/Database
         /// <summary>

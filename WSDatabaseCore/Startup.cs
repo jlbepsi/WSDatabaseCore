@@ -3,6 +3,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Reflection;
+using EpsiLibraryCore.Models;
 //using System.Linq;
 //using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ using Microsoft.OpenApi.Models;
 
 
 using EpsiLibraryCore.Utilitaires;
+using Microsoft.EntityFrameworkCore;
 
 // JWT: https://docs.microsoft.com/fr-fr/aspnet/core/signalr/authn-and-authz?view=aspnetcore-3.0
 //      https://blogs.infinitesquare.com/posts/web/mise-en-place-d-une-authentification-par-bearer-token-dans-une-application-aspnet-core
@@ -47,12 +49,23 @@ namespace WSDatabaseCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // CORS
             services.AddCors();
             
+            // JSON
             services
                 .AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
 
+            // Chaine de connexion pour EF - DbContext
+            var connectionString = Configuration.GetConnectionString("ServiceEpsiDatabase");
+            Console.WriteLine($"Startup, connectionString={connectionString}");
+            services.AddDbContext<ServiceEpsiContext>(
+                options => options.UseSqlServer(connectionString)
+            );
+            
+            // JTW
+            
             // Réinitialise les clés pour les Claims:
             // https://mderriey.com/2019/06/23/where-are-my-jwt-claims/
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -81,6 +94,7 @@ namespace WSDatabaseCore
                         };
                 });
 
+            // Swagger
             // Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen(c =>
             {

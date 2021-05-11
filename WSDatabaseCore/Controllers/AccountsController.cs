@@ -22,7 +22,12 @@ namespace WSDatabase.Controllers
     [Route("api/[controller]")]
     public class AccountsController : SecureApiController
     {
-        private readonly ServerAccountService _service = new ServerAccountService();
+        private readonly ServerAccountService _service;
+
+        public AccountsController(ServiceEpsiContext context)
+        {
+            _service = new ServerAccountService(context);
+        } 
 
         // GET: api/Accounts
         /// <summary>

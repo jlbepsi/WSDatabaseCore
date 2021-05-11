@@ -11,13 +11,8 @@ namespace EpsiLibraryCore.BusinessLogic
 {
     public class ServerAccountService : BaseService
     {
-        public ServerAccountService() 
-            : base ()
-        {
-        }
-
-        public ServerAccountService(ServiceEpsiContext model)
-            : base(model)
+        public ServerAccountService(ServiceEpsiContext context)
+            : base(context)
         {
         }
 

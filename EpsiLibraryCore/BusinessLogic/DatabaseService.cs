@@ -11,11 +11,6 @@ namespace EpsiLibraryCore.BusinessLogic
 {
     public class DatabaseService : BaseService
     {
-        public DatabaseService()
-            : base()
-        {
-        }
-
         public DatabaseService(ServiceEpsiContext contexte)
             : base(contexte)
         {

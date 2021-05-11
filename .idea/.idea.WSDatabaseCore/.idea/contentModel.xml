@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_WSDatabaseCore.-1801016536.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_WSDatabaseCore.-1801016536.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="EpsiLibraryCore" t="IncludeRecursive">
         <e p="App.config" t="Include" />
@@ -76,20 +76,13 @@
           <e p="makeWSDockerImage.sh" t="Include" />
           <e p="update_wsdatabase_prod.sh" t="Include" />
         </e>
-        <e p="Docker" t="Include">
+        <e p="Docker-Local" t="Include">
           <e p="Dockerfile" t="Include" />
-          <e p="Dockerfile_FromBuild" t="Include" />
-          <e p="generateOut.sh" t="Include" />
+          <e p="ServiceEPSI_SQLServer_Create.sql" t="Include" />
+          <e p="ServiceEPSI_V8_Create.sql" t="Include" />
+          <e p="buildAndDeployToDockerLOCAL.sh" t="Include" />
           <e p="makeWSDockerImage.sh" t="Include" />
-          <e p="target" t="Include">
-            <e p="epsiconfiguration_docker.xml" t="Include" />
-            <e p="keys" t="Include">
-              <e p="public_cert.crt" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Filter" t="Include">
-          <e p="JWTAuthenticationFilter.cs" t="Include" />
+          <e p="populateSQLServer.sh" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
@@ -98,6 +91,7 @@
         <e p="Startup.cs" t="Include" />
         <e p="WSDatabaseCore.csproj" t="IncludeRecursive" />
         <e p="WeatherForecast.cs" t="Include" />
+        <e p="appsettings-dockercompose.json" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />

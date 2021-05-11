@@ -8,21 +8,16 @@ namespace EpsiLibraryCore.BusinessLogic
 {
     public abstract class BaseService
     {
-        protected ServiceEpsiContext db = new ServiceEpsiContext();
+        protected ServiceEpsiContext db;
 
         public ServiceEpsiContext ServiceEpsiContext
         {
             get { return db; }
         }
 
-        public BaseService()
+        public BaseService(ServiceEpsiContext context)
         {
-            this.db = new ServiceEpsiContext();
-        }
-
-        public BaseService(ServiceEpsiContext model)
-        {
-            this.db = model;
+            this.db = context;
         }
 
         protected void WriteLogs(string message)

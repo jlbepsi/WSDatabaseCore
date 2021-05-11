@@ -14,13 +14,10 @@ namespace EpsiLibraryCore.Utilitaires
 {
     public class AuthenticationModule
     {
-        //private const string privateKey = "<Mettre ici la clé secrète>";
         TokenValidationParameters validationParameters;
 
         public AuthenticationModule()
         {
-            //SecurityKey signingKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(privateKey));
-
             validationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = false,
@@ -35,10 +32,11 @@ namespace EpsiLibraryCore.Utilitaires
         public static X509SecurityKey GetPublicKey()
         {
             var path = ConfigurationManager.GetConfigurationManager().GetValue("security.keys.public");
-            
+
             X509Certificate2 x509Certificate = LoadCertificateFile(path);
             X509SecurityKey publicKey = new X509SecurityKey(x509Certificate);
 
+            LogManager.GetLogger().Info($"AuthenticationModule.GetPublicKey, Loaded");
             return publicKey;
         }
 
@@ -70,15 +68,16 @@ namespace EpsiLibraryCore.Utilitaires
             };*/
         }
         
-        public static JWTAuthenticationIdentity PopulateUserIdentity(JwtSecurityToken userPayloadToken)
-        {
-            return PopulateUserFromClaims(userPayloadToken.Claims);
-        }
         public static JWTAuthenticationIdentity PopulateUser(ClaimsIdentity claimsIdentity)
         {
             return PopulateUserFromClaims(claimsIdentity.Claims); 
         }
 
+        /*
+        public static JWTAuthenticationIdentity PopulateUserIdentity(JwtSecurityToken userPayloadToken)
+        {
+            return PopulateUserFromClaims(userPayloadToken.Claims);
+        }
         public JwtSecurityToken ValidateToken(string accessToken)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -93,12 +92,15 @@ namespace EpsiLibraryCore.Utilitaires
                 result = handler.ValidateToken(accessToken, validationParameters, out securityToken);
                 validatedToken = securityToken as JwtSecurityToken;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
+                Debug.WriteLine(exception.Message);
             }
 
             return validatedToken;
         }
+        */
  
         private static X509Certificate2 LoadCertificateFile(string filename)
         {

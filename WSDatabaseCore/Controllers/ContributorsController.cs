@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using EpsiLibraryCore.Models;
 using EpsiLibraryCore.BusinessLogic;
 using Microsoft.AspNetCore.Authorization;
-using WSDatabaseCore.Filter;
 
 namespace WSDatabase.Controllers
 {
@@ -15,7 +14,12 @@ namespace WSDatabase.Controllers
     [Route("api/[controller]")]
     public class ContributorsController : SecureApiController
     {
-        private readonly DatabaseService _service = new DatabaseService();
+        private readonly DatabaseService _service;
+
+        public ContributorsController(ServiceEpsiContext context)
+        {
+            _service = new DatabaseService(context);
+        } 
 
         // GET: api/Contributors/5
         /// <summary>
