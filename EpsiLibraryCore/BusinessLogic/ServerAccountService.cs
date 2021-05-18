@@ -156,6 +156,7 @@ namespace EpsiLibraryCore.BusinessLogic
                 DatabaseServerName databaseServerName = this.db.DatabaseServerName.Find(serverAccount.ServerId);
                 if (databaseServerName == null)
                     return null;
+                serverName = databaseServerName.Name;
 
                 // Obtention du serveur réel : MySQL, SQL Server, ... avec son adresse IP
                 DatabaseManagement management = DatabaseManagement.CreateDatabaseManagement(databaseServerName.Code, databaseServerName.Iplocale, databaseServerName.PortLocal);
@@ -167,7 +168,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(string.Format("Erreur dans l'ajout du compte utilisateur {0} sur le serveur '{1}'", serverAccount.ToString(), serverName), ex);
+                throw new DatabaseException(string.Format("Erreur dans l'ajout du compte utilisateur {0} sur le serveur '{1}', Erreur: {2}", serverAccount.ToString(), serverName, ex.Message));
             }
              
             // Ajout de l'utilisateur pour cette BD
@@ -208,7 +209,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(String.Format("Erreur dans l'obtention du compte utilisateur {0} dans le référentiel", serverAccount.ToString()), ex);
+                throw new DatabaseException(String.Format("Erreur dans l'obtention du compte utilisateur {0} dans le référentiel, Erreur: {1}", serverAccount.ToString(), ex.Message));
             }
 
             try
@@ -221,7 +222,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(String.Format("Erreur dans la modification du compte utilisateur {0} sur le serveur '{1}'", serverAccount.ToString(), serverName));
+                throw new DatabaseException(String.Format("Erreur dans la modification du compte utilisateur {0} sur le serveur '{1}', Erreur: {2}", serverAccount.ToString(), serverName, ex.Message));
             }
 
             return true;
@@ -244,7 +245,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(String.Format("Erreur dans l'obtention du compte utilisateur {0} du serveur '{1}' dans le référentiel", userLogin, serverName), ex);
+                throw new DatabaseException(String.Format("Erreur dans l'obtention du compte utilisateur {0} du serveur '{1}' dans le référentiel, Erreur: {2}", userLogin, serverName, ex.Message));
             }
 
             try
@@ -262,7 +263,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(String.Format("Erreur dans la suppression du compte utilisateur {0} sur le serveur '{1}' dans le référentiel", userLogin, serverName));
+                throw new DatabaseException(String.Format("Erreur dans la suppression du compte utilisateur {0} sur le serveur '{1}' dans le référentiel, Erreur: {2}", userLogin, serverName, ex.Message));
             }
 
             try
@@ -275,7 +276,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(String.Format("Erreur dans la suppression du compte utilisateur {0} sur le serveur '{1}'", userLogin, serverName), ex);
+                throw new DatabaseException(String.Format("Erreur dans la suppression du compte utilisateur {0} sur le serveur '{1}', Erreur: {2}", userLogin, serverName, ex.Message));
             }
 
             return databaseServerUser;

@@ -94,6 +94,7 @@ namespace EpsiLibraryCore.BusinessLogic
                 DatabaseServerName databaseServerName = db.DatabaseServerName.Find(database.ServerId);
                 if (databaseServerName == null)
                     return null;
+                serverName = databaseServerName.Name;
 
                 // Obtention du compte utilisateur du serveur
                 ServerAccountService serverAccountService = new ServerAccountService(this.ServiceEpsiContext);
@@ -112,7 +113,7 @@ namespace EpsiLibraryCore.BusinessLogic
             catch (Exception ex)
             {
                 LogManager.GetLogger().Error(ex);
-                throw new DatabaseException(string.Format("Erreur dans l'ajout de la base de données {0} sur le serveur '{1}'", database.ToString(), serverName), ex);
+                throw new DatabaseException(string.Format("Erreur dans l'ajout de la base de données {0} sur le serveur '{1}', Erreur: {2}", database.ToString(), serverName, ex.Message));
             }
 
             // Ajout de la base de données dans le référentiel
@@ -522,6 +523,7 @@ namespace EpsiLibraryCore.BusinessLogic
                 DatabaseServerName databaseServerName = db.DatabaseServerName.Find(databaseGroupUser.Db.ServerId);
                 if (databaseServerName == null)
                     return false;
+                serverName = databaseServerName.Name;
 
                 // Obtention du serveur réel : MySQL, SQL Server, ... avec son adresse IP
                 DatabaseManagement management = DatabaseManagement.CreateDatabaseManagement(databaseServerName.Code, databaseServerName.Iplocale, databaseServerName.PortLocal);

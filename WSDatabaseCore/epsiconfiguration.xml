@@ -21,11 +21,12 @@
 
     <server>
       <sqlserver>
-        <connectionstring value="Data Source={0};User Id=extranetUser;Password=citK19c3;Initial Catalog=ServiceEPSI_SQLServer;Connect Timeout=10" />
-        <connectionstringOLD value="server={0};User Id=extranetUser;Password=citK19c3;Database=ServiceEPSI_SQLServer;Connect Timeout=10" />
+        <connectionstring value="Data Source={0},{1};User Id=sa;Password=abcd4ABCD;Initial Catalog=ServiceEPSI_SQLServer;Connect Timeout=10" />
+        <connectionstringOLD value="Data Source={0};User Id=extranetUser;Password=citK19c3;Initial Catalog=ServiceEPSI_SQLServer;Connect Timeout=10" />
       </sqlserver>
       <mysql>
-        <connectionstring value="server={0};user=extranetUser;password=dbZ51#aY;database=mysql;port=5306;" />
+        <connectionstring value="server={0};user=root;password=abcd4ABCD;database=mysql;port=5306;" />
+        <connectionstringOLD value="server={0};user=extranetUser;password=dbZ51#aY;database=mysql;port={1};" />
       </mysql>
       <oracle>
         <connectionstring value="user id=SYS; password=dbZ51#aY;DBA Privilege=SYSDBA;data source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = {0})(PORT = 1521))(CONNECT_DATA = (SID = bdaolap)))" />
