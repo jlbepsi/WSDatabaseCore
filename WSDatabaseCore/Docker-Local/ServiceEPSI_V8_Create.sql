@@ -67,27 +67,5 @@ go
 
 -- Insertion des données
 
-insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (4, N'SQLSERVER', N'SQL Server 2', N'192.168.100.17', N'sqlserver2.montpellier.epsi.fr', N'', 1, 1433, 4453, N'sqlserver2.montpellier.lan');
-insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (5, N'ORACLE', N'Oracle 2', N'192.168.100.17', N'oracle2.montpellier.epsi.fr', null, 0, 1521, 4531, N'
-oracle2.montpellier.lan');
-insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (6, N'MYSQL', N'MySQL 2', N'192.168.100.7', N'mysql2.montpellier.epsi.fr', null, 1, 3306, 5306, N'mysql');
-
-insert into dbo.DatabaseServerUser (ServerId, SqlLogin, UserLogin) values (4, N'test.v5', N'test.v5');
-insert into dbo.DatabaseServerUser (ServerId, SqlLogin, UserLogin) values (4, N'test.v8', N'test.v8');
-insert into dbo.DatabaseServerUser (ServerId, SqlLogin, UserLogin) values (6, N'test.v5', N'test.v5');
-insert into dbo.DatabaseServerUser (ServerId, SqlLogin, UserLogin) values (6, N'test.v8', N'test.v8');
-
-
-SET IDENTITY_INSERT dbo.DatabaseDB ON;
-insert into dbo.DatabaseDB (Id, ServerId, NomBD, DateCreation, Commentaire) values (1, 6, N'test20191007', N'2019-10-07 14:37:51.303', null);
-insert into dbo.DatabaseDB (Id, ServerId, NomBD, DateCreation, Commentaire) values (2, 6, N'Test N1', N'2020-05-14 14:06:29.327', null);
-insert into dbo.DatabaseDB (Id, ServerId, NomBD, DateCreation, Commentaire) values (3, 6, N'Test Autre', N'2020-05-14 19:11:39.777', null);
-SET IDENTITY_INSERT dbo.DatabaseDB OFF;
-
-insert into dbo.DatabaseGroupUser (DbId, SqlLogin, UserLogin, UserFullName, GroupType, AddedByUserLogin) values (1, N'test.v8', N'test.v8', N'V8 Test', 1, N'test.v8');
-insert into dbo.DatabaseGroupUser (DbId, SqlLogin, UserLogin, UserFullName, GroupType, AddedByUserLogin) values (2, N'test.v5', N'test.v5', N'v5 Test', 1, N'test.v5');
-insert into dbo.DatabaseGroupUser (DbId, SqlLogin, UserLogin, UserFullName, GroupType, AddedByUserLogin) values (2, N'test.v5ee', N'test.v5ee', null, 4, N'test.v5');
-insert into dbo.DatabaseGroupUser (DbId, SqlLogin, UserLogin, UserFullName, GroupType, AddedByUserLogin) values (2, N'test.v8', N'test.v8', N'V8 Test', 4, N'test.v5');
-insert into dbo.DatabaseGroupUser (DbId, SqlLogin, UserLogin, UserFullName, GroupType, AddedByUserLogin) values (3, N'test.v5', N'test.v5', N'v5 Test', 1, N'test.v5');
-
-
+insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (4, N'SQLSERVER', N'SQL Server 2', N'dbsqlserver', N'sqlserver2.montpellier.epsi.fr', N'', 1, 1433, 4453, N'sqlserver2.montpellier.lan');
+insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (6, N'MYSQL', N'MySQL 2', N'dbmysql', N'mysql2.montpellier.epsi.fr', null, 1, 3306, 5306, N'mysql');

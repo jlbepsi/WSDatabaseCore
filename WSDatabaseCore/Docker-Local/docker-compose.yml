@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  wsdatabase:
+    build: ./wsdatabase
+    restart: always
+    ports:
+      - "8070:80"
+    volumes:
+      - /docker/server/wsdatabasecore/logs/:/logs
+    depends_on:
+      - dbmysql
+      - dbsqlserver
+
+  dbmysql:
+    image: mysql:8.0.24
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: abcd4ABCD
+    ports:
+      - "6306:3306"
+
+  dbsqlserver:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      SA_PASSWORD: "abcd4ABCD"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "6433:1433"

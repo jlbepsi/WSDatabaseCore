@@ -5,19 +5,6 @@ use ServiceEPSI_SQLServer
 go
 
 
-
-create table ConfigurationServer
-(
-	Name varchar(15) not null 
-		constraint PK_ConfigurationServer primary key,
-	Value varchar(30)
-)
-go
-
-insert into dbo.ConfigurationServer (Name, Value) values (N'DBDataDirectory', N'/Data');
-go
-
-
 -- ************************************** PROCEDURES STOCKEES *******************************************
 --
 -- Insertion des utilisateurs
@@ -111,13 +98,7 @@ BEGIN
 
 	IF NOT EXISTS(SELECT name FROM sys.databases WHERE name = @dbName)
 	BEGIN
-		-- Obtention du répertoire de données des base de données
-		SELECT @dataDirectory = cs.value 
-		FROM ConfigurationServer AS cs
-		WHERE cs.name = 'DBDataDirectory'
-		
-		SET @SqlStatement = 'USE [master]; CREATE DATABASE [' + @dbName + '] ON PRIMARY (NAME=' + @dbName 
-											+ ', FILENAME=''' + @dataDirectory + @dbName + 'data.mdf'', SIZE=5, MAXSIZE=300)'
+		SET @SqlStatement = 'USE [master]; CREATE DATABASE [' + @dbName + ']';
 		EXEC sp_executesql @SqlStatement
 		
 		-- Fixe le proprietaire et donc les droits
