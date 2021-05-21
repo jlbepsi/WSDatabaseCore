@@ -258,8 +258,6 @@ namespace EpsiLibraryCore.DataAccess
             try
             {
                 Open();
-
-                Open();
                 MySqlCommand cmd = new MySqlCommand("DropDB", GetSqlConnection());
                 cmd.CommandType = CommandType.StoredProcedure;
 
