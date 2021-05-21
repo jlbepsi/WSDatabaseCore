@@ -5,6 +5,19 @@ use ServiceEPSI_SQLServer
 go
 
 
+
+create table ConfigurationServer
+(
+	Name varchar(15) not null 
+		constraint PK_ConfigurationServer primary key,
+	Value varchar(30)
+)
+go
+
+insert into dbo.ConfigurationServer (Name, Value) values (N'DBDataDirectory', N'/Data');
+go
+
+
 -- ************************************** PROCEDURES STOCKEES *******************************************
 --
 -- Insertion des utilisateurs
@@ -23,7 +36,7 @@ BEGIN
 
 		
 		SET @sqlStatement = 'USE [' + @dbName + ']; GRANT ' + @userRights + ' TO [' + @login + '];'
-		EXEC(@sqlStatement) 
+		EXEC sp_executesql @SqlStatement 
 			
 		SET @sqlStatement = 'USE [ServiceEPSI_SQLServer];'
 		EXEC sp_executesql @sqlStatement
@@ -49,12 +62,12 @@ BEGIN
 		IF (@doUpdate = 1)
 		BEGIN
 			SET @sqlStatement = 'USE [' + @dbName + ']; REVOKE ALTER, DELETE, EXECUTE, INSERT, SELECT, UPDATE, VIEW DEFINITION TO [' + @login + ']'
-			EXEC(@sqlStatement) 
+			EXEC sp_executesql @SqlStatement 
 		END
 			
 		-- Ajout des droits	
 		SET @sqlStatement = 'USE [' + @dbName + ']; GRANT ' + @userRights + ' TO [' + @login + ']'
-		EXEC(@sqlStatement) 
+		EXEC sp_executesql @SqlStatement 
 			
 		SET @sqlStatement = 'USE [ServiceEPSI_SQLServer];'
 		EXEC sp_executesql @sqlStatement
@@ -71,7 +84,7 @@ BEGIN
 	IF EXISTS(SELECT loginname, dbname FROM master.dbo.syslogins WHERE name = @login)
 	BEGIN
 		SET @sqlStatement = 'USE Master; ALTER LOGIN "' + @login + '" WITH PASSWORD = ''' + @password + ''''
-		EXEC(@sqlStatement)
+		EXEC sp_executesql @SqlStatement
 	END
 	ELSE
 	BEGIN
@@ -98,7 +111,8 @@ BEGIN
 
 	IF NOT EXISTS(SELECT name FROM sys.databases WHERE name = @dbName)
 	BEGIN
-		SET @SqlStatement = 'USE [master]; CREATE DATABASE [' + @dbName + ']';
+		
+		SET @SqlStatement = 'USE [master]; CREATE DATABASE [' + @dbName + ']'
 		EXEC sp_executesql @SqlStatement
 		
 		-- Fixe le proprietaire et donc les droits
@@ -222,7 +236,7 @@ BEGIN
 	IF EXISTS(SELECT name FROM sys.databases WHERE name = @dbName)
 	BEGIN
 		SET @sqlStatement = 'USE [' + @dbName + ']; DROP USER "' + @login + '"'
-		EXEC(@sqlStatement) 
+		EXEC sp_executesql @SqlStatement 
 	END
 END
 go
@@ -305,10 +319,10 @@ BEGIN
 	BEGIN
 		-- Supression des droits
 		SET @sqlStatement = 'USE [' + @dbName + ']; REVOKE ALTER, DELETE, EXECUTE, INSERT, SELECT, UPDATE, VIEW DEFINITION TO [' + @login + ']'
-		EXEC(@sqlStatement) 	
+		EXEC sp_executesql @SqlStatement 	
 		-- Ajout des droits	
 		SET @sqlStatement = 'USE [' + @dbName + ']; GRANT ' + @userRights + ' TO [' + @login + ']'
-		EXEC(@sqlStatement) 
+		EXEC sp_executesql @SqlStatement 
 			
 		SET @sqlStatement = 'USE [ServiceEPSI_SQLServer];'
 		EXEC sp_executesql @sqlStatement
@@ -334,7 +348,7 @@ BEGIN
 	IF EXISTS(SELECT name FROM sys.databases WHERE name = @dbName)
 	BEGIN
 		SET @sqlStatement = 'USE [' + @dbName + ']; ALTER LOGIN "' + @login + '" WITH PASSWORD = ''' + @password + ''''
-		EXEC(@sqlStatement)
+		EXEC sp_executesql @SqlStatement
 		SET @userUpdated = 1
 	END
 END

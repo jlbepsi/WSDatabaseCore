@@ -11,22 +11,22 @@ DROP PROCEDURE IF EXISTS UpdateUserPassword;
 
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddOrUpdateUser`(IN `userName` VARCHAR(30), IN `userPassword` VARCHAR(30))
+CREATE PROCEDURE `AddOrUpdateUser`(IN `userName` VARCHAR(30), IN `userPassword` VARCHAR(30))
 BEGIN
-	DECLARE userCount INTEGER; 
-	
-	SELECT COUNT(*) INTO userCount  FROM mysql.user WHERE USER = userName;
-	IF  userCount = 0 THEN
-		SET @SQLStmt = CONCAT("CREATE USER '", userName, "'@'%' IDENTIFIED BY '", userPassword, "';");
-	ELSE
-	  SET @SQLStmt = CONCAT("ALTER USER '", userName, "' IDENTIFIED BY '", userPassword, "';");
-	END IF;
-	
-	PREPARE Stmt FROM @SQLStmt;
-	EXECUTE Stmt;
-	DEALLOCATE PREPARE Stmt;
-	
-	FLUSH PRIVILEGES;
+  DECLARE userCount INTEGER; 
+  
+  SELECT COUNT(*) INTO userCount  FROM mysql.user WHERE USER = userName;
+  IF  userCount = 0 THEN
+    SET @SQLStmt = CONCAT("CREATE USER '", userName, "'@'%' IDENTIFIED BY '", userPassword, "';");
+  ELSE
+    SET @SQLStmt = CONCAT("ALTER USER '", userName, "' IDENTIFIED BY '", userPassword, "';");
+  END IF;
+  
+  PREPARE Stmt FROM @SQLStmt;
+  EXECUTE Stmt;
+  DEALLOCATE PREPARE Stmt;
+  
+  FLUSH PRIVILEGES;
 END$$
 DELIMITER ;
 
@@ -47,15 +47,15 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DropUser`(IN userName VARCHAR(30))
+CREATE PROCEDURE `DropUser`(IN userName VARCHAR(30))
 BEGIN
-	DECLARE userCount INTEGER;
-	
-	SELECT COUNT(*) INTO userCount  FROM mysql.user WHERE USER = userName;
-	IF  userCount = 1 THEN
-		DELETE FROM user WHERE USER = userName;
-		FLUSH PRIVILEGES;
-	END IF;
+  DECLARE userCount INTEGER;
+  
+  SELECT COUNT(*) INTO userCount  FROM mysql.user WHERE USER = userName;
+  IF  userCount = 1 THEN
+    DELETE FROM user WHERE USER = userName;
+    FLUSH PRIVILEGES;
+  END IF;
 END$$
 DELIMITER ;
 
@@ -66,9 +66,9 @@ SELECT COUNT(*) INTO dbExists FROM information_schema.schemata WHERE SCHEMA_NAME
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ExistsUser`(IN `userName` VARCHAR(30), OUT `userExists` INT)
+CREATE PROCEDURE `ExistsUser`(IN `userName` VARCHAR(30), OUT `userExists` INT)
 BEGIN
-	SELECT COUNT(*) INTO userExists  FROM mysql.user WHERE USER = userName;
+  SELECT COUNT(*) INTO userExists  FROM mysql.user WHERE USER = userName;
 END$$
 DELIMITER ;
 
@@ -79,25 +79,25 @@ SELECT COUNT(*) INTO userExists FROM mysql.db WHERE User = userName AND Db = dbN
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListDatabases`(IN `userName` VARCHAR(30))
+CREATE PROCEDURE `ListDatabases`(IN `userName` VARCHAR(30))
 BEGIN
-	SELECT db FROM mysql.db WHERE user = userName;
+  SELECT db FROM mysql.db WHERE user = userName;
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `UpdateUserPassword`( IN userName VARCHAR(30), IN userPassword VARCHAR(30), OUT userUpdated INT)
 BEGIN
-	SELECT COUNT(*) INTO userUpdated  FROM mysql.user WHERE USER = userName;
-	
-	IF  userUpdated = 1 THEN
-	  	SET @SQLStmt = CONCAT("ALTER USER ", userName, " IDENTIFIED BY '", userPassword, "';");
-		PREPARE Stmt FROM @SQLStmt;
-		EXECUTE Stmt;
-		DEALLOCATE PREPARE Stmt;
-		
-		FLUSH PRIVILEGES;
-	END IF;
+  SELECT COUNT(*) INTO userUpdated  FROM mysql.user WHERE USER = userName;
+  
+  IF  userUpdated = 1 THEN
+      SET @SQLStmt = CONCAT("ALTER USER ", userName, " IDENTIFIED BY '", userPassword, "';");
+    PREPARE Stmt FROM @SQLStmt;
+    EXECUTE Stmt;
+    DEALLOCATE PREPARE Stmt;
+    
+    FLUSH PRIVILEGES;
+  END IF;
 END$$
 DELIMITER ;
 

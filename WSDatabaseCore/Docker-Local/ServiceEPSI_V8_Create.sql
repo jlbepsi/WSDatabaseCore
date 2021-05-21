@@ -68,4 +68,7 @@ go
 -- Insertion des données
 
 insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (4, N'SQLSERVER', N'SQL Server 2', N'dbsqlserver', N'sqlserver2.montpellier.epsi.fr', N'', 1, 1433, 4453, N'sqlserver2.montpellier.lan');
+insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (5, N'ORACLE', N'Oracle 2', N'192.168.100.17', N'oracle2.montpellier.epsi.fr', null, 0, 1521, 4531, N'
+oracle2.montpellier.lan');
 insert into dbo.DatabaseServerName (Id, Code, Name, IPLocale, NomDNS, Description, CanAddDatabase, PortLocal, PortExterne, NomDNSLocal) values (6, N'MYSQL', N'MySQL 2', N'dbmysql', N'mysql2.montpellier.epsi.fr', null, 1, 3306, 5306, N'mysql');
+
